@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pizza Mama — Menu{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'menu/style.css' %}">
+{% endblock %}
+
+{% block body_class %}menu-page{% endblock %}
+
+{% block content %}
+<section class="menu-hero">
+    <div class="container menu-hero__inner">
+        <div>
+            <span class="eyebrow">Notre carte</span>
+            <h1>Notre carte</h1>
+            <p class="section-text">
+                Découvrez l’ensemble de nos pizzas, préparées avec des ingrédients de qualité et un savoir-faire artisanal.
+            </p>
+        </div>
+
+        <div class="menu-summary card">
+            <strong>{{ pizza_count }}</strong>
+            <span>pizza{{ pizza_count|pluralize }} affichée{{ pizza_count|pluralize }}</span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <form class="filters card" method="get">
+            <div class="filter-field">
+                <label for="q">Rechercher une pizza</label>
+                <input type="text" id="q" name="q" value="{{ query }}" placeholder="Ex : saumon, barbecue, fromage...">
+            </div>
+
+            <div class="filter-field">
+                <label for="category">Catégorie</label>
+                <select id="category" name="category">
+                    <option value="">Toutes les catégories</option>
+                    {% for value, label in categories %}
+                        <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filter-field">
+                <label for="sort">Trier par</label>
+                <select id="sort" name="sort">
+                    <option value="price" {% if sort == 'price' %}selected{% endif %}>Prix croissant</option>
+                    <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Prix décroissant</option>
+                    <option value="name" {% if sort == 'name' %}selected{% endif %}>Nom</option>
+                </select>
+            </div>
+
+            <label class="checkbox-row">
+                <input type="checkbox" name="vegetarian" value="1" {% if vegetarian_only %}checked{% endif %}>
+                <span>Uniquement les pizzas végétariennes</span>
+            </label>
+
+            <button class="button" type="submit">Appliquer</button>
+        </form>
+
+        <div class="menu-grid menu-grid--v2">
+            {% for pizza in pizzas %}
+                <article class="pizza-card pizza-card--v2">
+                    <div class="pizza-card__media">
+                        {% if pizza.image_url %}
+                            <img src="{% static pizza.image_url %}" alt="{{ pizza.nom }}">
+                        {% endif %}
+                        <span class="badge badge--absolute badge--category">{{ pizza.category_label }}</span>
+                    </div>
+
+                    <div class="pizza-card__body">
+                        <div class="pizza-card__header">
+                            <div>
+                                <h2>{{ pizza.nom }}</h2>
+                                {% if pizza.vegetarienne %}
+                                    <span class="badge badge--veg">Végétarienne</span>
+                                {% endif %}
+                                {% if pizza.signature %}
+                                    <span class="badge badge--signature">Signature</span>
+                                {% endif %}
+                            </div>
+                            <strong>{{ pizza.prix|floatformat:2 }}€</strong>
+                        </div>
+
+                        <p class="muted">{{ pizza.description|default:pizza.ingredients }}</p>
+
+                        <a class="pizza-card__link" href="{% url 'menu:detail' pizza.id %}">
+                            Voir le détail
+                        </a>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="empty-state">Aucune pizza ne correspond à la recherche actuelle.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

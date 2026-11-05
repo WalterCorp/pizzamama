@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}Pizza Mama — {{ pizza.nom }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'menu/style.css' %}">
+{% endblock %}
+
+{% block body_class %}menu-page{% endblock %}
+
+{% block content %}
+
+<section class="section pizza-detail">
+    <div class="container pizza-detail__grid">
+
+                <div class="pizza-detail__main card">
+
+                        <a class="back-link" href="{% url 'menu:index' %}">
+                ← Retour au menu
+            </a>
+
+            <div class="pizza-detail__hero">
+
+                                <div class="pizza-detail__copy">
+
+                    <div class="badge-row">
+                        <span class="badge badge--category">{{ pizza.category_label }}</span>
+
+                        {% if pizza.vegetarienne %}
+                            <span class="badge badge--veg">Végétarienne</span>
+                        {% endif %}
+
+                        {% if pizza.signature %}
+                            <span class="badge badge--signature">Signature</span>
+                        {% endif %}
+                    </div>
+
+                    <h1>{{ pizza.nom }}</h1>
+
+                    <p class="section-text">
+                        {{ pizza.description|default:pizza.ingredients }}
+                    </p>
+
+                    <div class="pizza-detail__price">
+                        {{ pizza.prix|floatformat:2 }}€
+                    </div>
+                </div>
+
+                                {% if pizza.image_url %}
+                    <div class="pizza-detail__image-wrap">
+
+                                                <img 
+                            class="pizza-detail__image"
+                            src="{% static pizza.image_url %}" 
+                            alt="{{ pizza.nom }}"
+                        >
+
+                    </div>
+                {% endif %}
+            </div>
+
+                        <div class="detail-boxes">
+
+                <div class="detail-box">
+                    <strong>Ingrédients</strong>
+                    <span>{{ pizza.ingredients }}</span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Préparation</strong>
+                    <span>
+                        Recette cuisinée minute au format individuel généreux
+                    </span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Disponibilité</strong>
+                    <span>
+                        {% if pizza.disponible %}
+                            Disponible aujourd’hui
+                        {% else %}
+                            Indisponible
+                        {% endif %}
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+                <aside class="card suggestion-card">
+
+            <p class="footer-title">À découvrir aussi</p>
+
+            <div class="suggestion-list">
+
+                {% for item in suggested_pizzas %}
+                    <a href="{% url 'menu:detail' item.id %}" class="suggestion-item">
+                        <span>{{ item.nom }}</span>
+                        <strong>{{ item.prix|floatformat:2 }}€</strong>
+                    </a>
+                {% empty %}
+                    <p class="muted">Aucune autre pizza disponible.</p>
+                {% endfor %}
+
+            </div>
+        </aside>
+
+    </div>
+</section>
+
+{% endblock %}

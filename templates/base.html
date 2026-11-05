@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pizza Mama, pizzeria italienne premium et accessible : pizzas maison, recettes signatures, réservation simple et menu en ligne.">
+    
+    <title>{% block title %}Pizza Mama{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'global.css' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <header class="site-header">
+        <div class="container site-header__inner">
+            <a class="brand" href="{% url 'main:index' %}">
+                <span class="brand__mark">PM</span>
+                <span>
+                    <strong>Pizza Mama</strong>
+                    <small>Pizzeria italienne • sur place • à emporter</small>
+                </span>
+            </a>
+
+            <nav class="site-nav" aria-label="Navigation principale">
+                <a href="{% url 'main:index' %}">Accueil</a>
+                <a href="{% url 'menu:index' %}">Menu</a>
+                <a href="{% url 'main:index' %}#about">À propos</a>
+                <a href="{% url 'main:index' %}#experience">Expérience</a>
+                <a href="{% url 'main:index' %}#reservation">Réserver</a>
+            </nav>
+        </div>
+    </header>
+
+    {% if messages %}
+        <div class="container flash-stack">
+            {% for message in messages %}
+                <div class="flash flash--{{ message.tags|default:'info' }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer" id="contact">
+        <div class="container footer-grid">
+            <div>
+                <p class="footer-title">Pizza Mama</p>
+                <p>Pizzeria italienne conviviale, Pizza Mama vous accueille sur place ou à emporter avec une carte généreuse, des recettes signatures et des ingrédients sélectionnés avec soin.</p>
+            </div>
+            <div>
+                <p class="footer-title">Infos pratiques</p>
+                <ul class="footer-list">
+                    <li>12 rue des Saveurs, Paris 75012</li>
+                    <li>01 23 45 67 89</li>
+                    <li>Ouvert tous les jours • 11h30 – 22h30</li>
+                    <li>contact@pizzamama.fr</li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Accès rapide</p>
+                <ul class="footer-list">
+                    <li><a href="{% url 'menu:index' %}">Voir le menu complet</a></li>
+                    <li><a href="{% url 'main:index' %}#signature">Pizzas signatures</a></li>
+                    <li><a href="{% url 'main:index' %}#reservation">Réserver une table</a></li>
+                                    </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

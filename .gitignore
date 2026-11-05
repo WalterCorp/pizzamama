@@ -1,0 +1,27 @@
+# Environnement virtuel Python
+venv/
+
+# Fichiers compilés par Python (.pyc, .pyo, .pyd)
+__pycache__/
+*.py[cod]
+
+# Bases de données SQLite (contiennent le compte administrateur)
+*.sqlite3
+
+# Secrets : tous les fichiers .env, sauf le modèle sans valeurs
+.env
+.env.*
+!.env.example
+
+# Fichiers statiques rassemblés par collectstatic
+staticfiles/
+
+# Archives et sauvegardes
+*.zip
+
+# Fichiers propres à macOS et à l'éditeur
+.DS_Store
+.vscode/
+
+# Document de travail personnel
+CARTE_PROJET.md

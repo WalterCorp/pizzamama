@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Pizza Mama — Pizzeria italienne{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/style.css' %}">
+{% endblock %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container hero__grid">
+        <div class="hero__content">
+            <span class="eyebrow">Pizzeria italienne • Sur place • À emporter</span>
+            <h1>Des pizzas artisanales, préparées avec passion.</h1>
+            <p class="hero__text">
+                Chez Pizza Mama, chaque recette est pensée pour offrir un équilibre parfait entre tradition italienne et plaisir moderne.
+                Des ingrédients frais, une pâte travaillée avec soin, et un savoir-faire authentique.
+            </p>
+
+            <div class="hero__actions">
+                <a class="button" href="{% url 'menu:index' %}">Voir le menu</a>
+                <a class="button-secondary" href="#reservation">Réserver une table</a>
+            </div>
+
+            <div class="hero__stats">
+                <div class="stat-card">
+                    <strong>{{ pizza_count }}</strong>
+                    <span>Pizzas disponibles</span>
+                </div>
+                <div class="stat-card">
+                    <strong>{{ vegetarian_count }}</strong>
+                    <span>Options végétariennes</span>
+                </div>
+                <div class="stat-card">
+                    <strong>{% if starting_price %}{{ starting_price|floatformat:2 }}€{% else %}—{% endif %}</strong>
+                    <span>Premier prix</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero__panel">
+            <div class="hero__panel-card hero__panel-card--image">
+                <img class="hero__logo" src="{% static 'main/images/main_logo.png' %}" alt="Logo Pizza Mama">
+            </div>
+
+            <div class="hero__panel-card">
+                <p class="hero__panel-label">Pourquoi choisir Pizza Mama</p>
+                <ul>
+                    <li>Ingrédients frais et sélectionnés chaque jour</li>
+                    <li>Recettes inspirées de la tradition italienne</li>
+                    <li>Options végétariennes disponibles</li>
+                    <li>Service sur place et à emporter</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="signature">
+    <div class="container">
+        <div class="section-header">
+            <span class="eyebrow">Signatures de la maison</span>
+            <h2 class="section-title">Nos pizzas signatures</h2>
+            <p class="section-text">
+                Une sélection de recettes emblématiques, pensées pour offrir une expérience unique à chaque dégustation.
+            </p>
+        </div>
+
+        <div class="card-grid">
+            {% for pizza in signature_pizzas %}
+                <article class="card featured-card">
+                    <div class="featured-card__image-wrap">
+                        {% if pizza.image_url %}
+                            <img class="featured-card__image" src="{% static pizza.image_url %}" alt="{{ pizza.nom }}">
+                        {% endif %}
+                        <span class="badge badge--absolute badge--category">{{ pizza.category_label }}</span>
+                    </div>
+
+                    <div class="featured-card__body">
+                        <h3>{{ pizza.nom }}</h3>
+                        <p class="muted">{{ pizza.description|default:pizza.ingredients }}</p>
+
+                        <div class="featured-card__footer">
+                            <strong>{{ pizza.prix|floatformat:2 }}€</strong>
+                            <a href="{% url 'menu:detail' pizza.id %}">Voir le détail</a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="empty-state">Aucune pizza signature n'est encore disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section about-section" id="about">
+    <div class="container about-grid">
+        <div>
+            <span class="eyebrow">À propos</span>
+            <h2 class="section-title">Une passion pour la pizza, avant tout</h2>
+        </div>
+
+        <div>
+            <p class="section-text">
+                Pizza Mama est née d’une envie simple : proposer des pizzas authentiques, accessibles et préparées avec soin.
+            </p>
+            <p class="section-text">
+                Nous sélectionnons nos ingrédients avec exigence et travaillons chaque recette pour garantir un goût équilibré,
+                généreux et fidèle à l’esprit de la cuisine italienne.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section experience-section" id="experience">
+    <div class="container experience-grid">
+        <article class="card experience-card">
+            <span class="eyebrow">Sur place</span>
+            <h3>Un accueil chaleureux et une ambiance conviviale</h3>
+            <p class="muted">
+                Profitez d’un cadre simple et agréable pour partager un repas généreux autour de recettes préparées à la commande.
+            </p>
+        </article>
+
+        <article class="card experience-card">
+            <span class="eyebrow">À emporter</span>
+            <h3>Une carte pensée pour tous les appétits</h3>
+            <p class="muted">
+                Classiques incontournables, créations signatures et options végétariennes :
+                chacun peut trouver sa pizza préférée en un coup d’œil.
+            </p>
+        </article>
+
+        <article class="card experience-card">
+            <span class="eyebrow">Savoir-faire</span>
+            <h3>Des recettes préparées avec soin</h3>
+            <p class="muted">
+                Chaque pizza est élaborée avec une attention particulière portée à la pâte,
+                à la cuisson et à l’équilibre des saveurs.
+            </p>
+        </article>
+    </div>
+</section>
+
+<section class="section reservation-section" id="reservation">
+    <div class="container reservation-grid">
+        <div>
+            <span class="eyebrow">Réserver</span>
+            <h2 class="section-title">Réserver une table</h2>
+            <p class="section-text">
+                Réservez votre table en quelques secondes et profitez d’un moment convivial chez Pizza Mama.
+                Pour toute demande particulière, laissez-nous un message.
+            </p>
+
+            <ul class="feature-list">
+                <li>Accueil sur place et à emporter</li>
+                <li>Créneaux adaptés aux repas du midi et du soir</li>
+                <li>Demande simple et rapide</li>
+            </ul>
+        </div>
+
+        <form method="post" class="card reservation-form">
+            {% csrf_token %}
+
+            <div class="form-grid">
+                <div class="form-field">
+                    <label for="id_nom">Nom</label>
+                    {{ reservation_form.nom }}
+                </div>
+
+                <div class="form-field">
+                    <label for="id_email">Email</label>
+                    {{ reservation_form.email }}
+                </div>
+
+                <div class="form-field">
+                    <label for="id_telephone">Téléphone</label>
+                    {{ reservation_form.telephone }}
+                </div>
+
+                <div class="form-field">
+                    <label for="id_personnes">Personnes</label>
+                    {{ reservation_form.personnes }}
+                </div>
+
+                <div class="form-field">
+                    <label for="id_date">Date</label>
+                    {{ reservation_form.date }}
+                </div>
+
+                <div class="form-field">
+                    <label for="id_heure">Heure</label>
+                    {{ reservation_form.heure }}
+                </div>
+
+                <div class="form-field form-field--full">
+                    <label for="id_message">Message complémentaire</label>
+                    {{ reservation_form.message }}
+                </div>
+            </div>
+
+            <button class="button" type="submit">Confirmer la réservation</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

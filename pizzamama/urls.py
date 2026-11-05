@@ -1,0 +1,13 @@
+from django.contrib import admin
+from django.urls import include, path
+from django.conf import settings
+
+admin.site.site_header = settings.ADMIN_SITE_HEADER
+admin.site.site_title = settings.ADMIN_SITE_TITLE
+admin.site.index_title = settings.ADMIN_INDEX_TITLE
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('menu/', include('menu.urls')),
+    path('', include('main.urls')),
+]
