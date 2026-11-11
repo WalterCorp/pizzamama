@@ -1,0 +1,107 @@
+[
+{
+  "model": "menu.pizza",
+  "pk": 1,
+  "fields": {
+    "nom": "Végétarienne",
+    "ingredients": "Base sauce tomate, fromage, artichauts, poivron, tomates fraîches, champignon, olives",
+    "prix": 10.0,
+    "vegetarienne": true,
+    "description": "Une recette colorée et généreuse avec une base tomate, des légumes grillés et une finition pleine de fraîcheur.",
+    "categorie": "veggie",
+    "image_url": "menu/images/pizzas/vegetarienne.png",
+    "disponible": true,
+    "signature": true
+  }
+},
+{
+  "model": "menu.pizza",
+  "pk": 2,
+  "fields": {
+    "nom": "Barbecue",
+    "ingredients": "Base sauce barbecue, fromage, chicken, merguez",
+    "prix": 10.0,
+    "vegetarienne": false,
+    "description": "Une pizza gourmande et intense, pensée pour les amateurs de saveurs fumées et de générosité.",
+    "categorie": "signature",
+    "image_url": "menu/images/pizzas/barbecue.png",
+    "disponible": true,
+    "signature": true
+  }
+},
+{
+  "model": "menu.pizza",
+  "pk": 3,
+  "fields": {
+    "nom": "Tuna",
+    "ingredients": "Base sauce tomate, fromage, thon, poivron, oeuf",
+    "prix": 10.0,
+    "vegetarienne": false,
+    "description": "Une recette équilibrée mêlant thon, oeuf et poivron sur une base tomate simple et efficace.",
+    "categorie": "classique",
+    "image_url": "menu/images/pizzas/tuna.png",
+    "disponible": true,
+    "signature": false
+  }
+},
+{
+  "model": "menu.pizza",
+  "pk": 4,
+  "fields": {
+    "nom": "4 Fromages",
+    "ingredients": "Base sauce tomate, fromage, brie, gorgonzola, chèvre",
+    "prix": 10.0,
+    "vegetarienne": true,
+    "description": "Une composition riche et fondante avec quatre fromages sélectionnés pour une vraie sensation de confort.",
+    "categorie": "veggie",
+    "image_url": "menu/images/pizzas/4-fromages.png",
+    "disponible": true,
+    "signature": true
+  }
+},
+{
+  "model": "menu.pizza",
+  "pk": 5,
+  "fields": {
+    "nom": "Norvégienne",
+    "ingredients": "Base crème fraîche, fromage, saumon, citron",
+    "prix": 12.5,
+    "vegetarienne": false,
+    "description": "Une pizza à base crème fraîche et saumon, plus raffinée, idéale pour une carte premium.",
+    "categorie": "blanche",
+    "image_url": "menu/images/pizzas/norvegienne.png",
+    "disponible": true,
+    "signature": false
+  }
+},
+{
+  "model": "menu.pizza",
+  "pk": 6,
+  "fields": {
+    "nom": "Marguerita",
+    "ingredients": "Base sauce tomate, fromage",
+    "prix": 9.0,
+    "vegetarienne": true,
+    "description": "L’incontournable de la maison, volontairement simple, légère et rassurante.",
+    "categorie": "classique",
+    "image_url": "menu/images/pizzas/marguerita.png",
+    "disponible": true,
+    "signature": false
+  }
+},
+{
+  "model": "menu.pizza",
+  "pk": 7,
+  "fields": {
+    "nom": "Western",
+    "ingredients": "Base crème fraîche, fromage, poulet fumé, pommes de terre boursin",
+    "prix": 11.5,
+    "vegetarienne": false,
+    "description": "Une base crème très gourmande avec poulet fumé, pommes de terre et Boursin pour une vraie identité produit.",
+    "categorie": "blanche",
+    "image_url": "menu/images/pizzas/western.png",
+    "disponible": true,
+    "signature": true
+  }
+}
+]
